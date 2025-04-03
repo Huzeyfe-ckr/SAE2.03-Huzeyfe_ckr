@@ -1,12 +1,15 @@
-.movie__container{
+.movie{
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    
     
 }
 
 
-.movie--4{
+.movie__figure{
     .movie__corps{
         
         border: solid 2px  ;
