@@ -8,22 +8,26 @@
   </head>
   <body>
     <section id="log"></section>
+    <section id="addMovie"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
-      import { DataMovie } from "./data/DataMovie.js";
+      import { DataMovie } from "./data/dataMovie.js";
 
+      
+      window.C = {};
+      
       C.handlerUpdate = async function(){
 
         let form = document.querySelector('.addMovie__form');
-
-        let fd = FormData(form);
+           
+        let fd = new FormData(form);
         let res = await DataMovie.update(fd);
         V.renderLog(res);
+        
       }
 
-      window.C = {};
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");

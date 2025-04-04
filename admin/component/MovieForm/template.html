@@ -4,7 +4,7 @@
      <input
        required
        type="text"
-       name="Titre de film"
+       name="name"
        placeholder="Saisir un Titre de film"
        pattern="[^0-9]*"
        title="Numbers are not allowed"
@@ -12,69 +12,55 @@
        <input
        required
        type="text"
-       name="Réalisateur"
+       name="director"
        placeholder="Saisir un Réalisateur"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
        />
        <input
        required
-       type="date"
-       name="Année de sortie"
+       type="number"
+       name="year"
        placeholder="Saisir un Année de sortie"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
+       min="1900"
+       max="2025"
        />
        <input
        required
        type="number"
-       name="Durée en minutes"
+       name="length"
        placeholder="Saisir un Durée en minutes"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
        />
        <input
        required
        type="text"
-       name="Description"
+       name="description"
        placeholder="Saisir un Description"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
-       />
-       <input
-       required
-       type="text"
-       name="Catégorie"
-       placeholder="Saisir un Catégorie"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
-       />
-       <input
-       required
-       type="file"
-       name="Nom du fichier"
-       placeholder="Saisir un Nom du fichier"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
-       />
-       <input
-       required
-       type="url"
-       name="URL du trailer"
-       placeholder="Saisir un URL du trailer"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
        />
        <input
        required
        type="number"
-       name="Restriction d'âge"
+       name="id_category"
+       placeholder="Saisir une catégorie"
+       />
+       <input
+       required
+       type="text"
+       name="image"
+       placeholder="image"
+       />
+       <input
+       required
+       type="text"
+       name="trailer"
+       placeholder="Saisir un URL du trailer"
+       />
+       <input
+       required
+       type="number"
+       name="min_age"
        placeholder="Saisir un Restriction d'âge"
-       pattern="[^0-9]*"
-       title="Numbers are not allowed"
        />
       
-      <input onclick="{{handler}}" type="button" value="Ajouter" name="todo" />
+    <input onclick="{{handler}}" type="button" value="Ajouter un film" name="todo" />
        
      
 

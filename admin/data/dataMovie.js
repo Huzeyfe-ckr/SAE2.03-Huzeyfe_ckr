@@ -1,4 +1,4 @@
-let HOST_URL = "../~cakir4/SAE2.03-Huzeyfe_ckr";
+let HOST_URL = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr";
 
 let DataMovie = {};
 
@@ -6,7 +6,7 @@ let DataMovie = {};
 
 
 DataMovie.request = async function(){
-    let answer = await fetch(HOST_URL + "/server/script.?readmovies");
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmovies");
     let data = await answer.json();
     return data;
 }
@@ -18,7 +18,7 @@ DataMovie.update = async function(fdata){
         method: "POST",
         body: fdata
     };
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=update", config);
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=updatemovies", config);
     let data = await answer.json();
     return data;
 
