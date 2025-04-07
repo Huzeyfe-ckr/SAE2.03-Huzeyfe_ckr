@@ -24,16 +24,16 @@ DataMovie.requestInfosMovies = async function (id) {
     return movie;
   };
 
-/* C'EST QUOI async/await ?
-    
-   Il y a des instructions qui prennent du temps sans qu'on puisse prédire combien.
-   fetch (et answer.json() ) en font partie.
-   Il n'est en effet pas possible de savoir combien de temps le serveur prendra à nous répondre.
-   Peut-être même qu'il est en panne et ne répondra pas du tout !
-   Le mot clé await permet de dire à javascript qu'il faut ATTENDRE la réponse du serveur avant de 
-   poursuivre l'exécution du code (sinon on va vouloir lire les données avant de les avoir reçues).
-   Et pour pouvoir utiliser await, il faut ajouter le mot clé async à la fonction.
+DataMovie.requestCategory = async function () {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readcategories" );
+    let data = await answer.json();
+    return data;
+  };
 
-*/
+  DataMovie.requestMovieCategory = async function (category) {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmoviecategory&category=" + category );
+    let data = await answer.json();
+    return data;
+  };  
 
 export {DataMovie};

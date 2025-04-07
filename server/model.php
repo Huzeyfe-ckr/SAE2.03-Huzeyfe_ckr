@@ -77,3 +77,27 @@ function getInfosMovies($id){
     return $res; // Retourne les résultats
 }
 
+function getCategories(){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name AS category FROM Category";
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; 
+}
+
+function getMovieCategory($category){
+    if (empty($category)) {
+        return false;
+    }
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT Movie.id, Movie.name, Movie.year, Movie.length, Movie.description, Movie.director, 
+            Movie.image, Movie.trailer, Movie.min_age, Category.id AS category_id ,Category.name AS category
+            FROM Movie JOIN Category ON Movie.id_category = Category.id 
+            WHERE Category.name = :category;";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':category', $category);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; 
+}

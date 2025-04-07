@@ -64,3 +64,30 @@ function addMoviesController(){
            return "Erreur : Tous les champs doivent être remplis.";
         };
     } 
+
+
+
+
+    function readCategoriesController(){
+        // Récupération des paramètres de la requête
+        $category = getCategories();
+        if ($categories !=0) {
+            return $categories ;
+        }
+        else{
+           return "Erreur lors de la récupération des catégories";
+        };
+    } 
+
+
+    function readMovieCategoryController(){
+        // Récupération des paramètres de la requête
+        $category = $_REQUEST["category"];
+        $movies = getMovieCategory($category);
+        if ($movies !=0) {
+            return $movies ;
+        }
+        else{
+           return "Erreur lors de la récupération des films de la catégorie $category";
+        };
+    } 

@@ -16,12 +16,12 @@
 
     
     <script type="module">
+      import { DataMovie } from "./data/dataMovie.js";
       import { NavBar } from "./component/NavBar/script.js";
       import { Movie } from "./component/Movie/script.js";
-      import { DataMovie } from "./data/dataMovie.js";
-
-  // Importation information
+      
       import { Movieinfo } from "./component/Movieinfo/script.js";
+      import { MovieCategory } from "./component/MovieCategory/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -51,11 +51,19 @@
             {
               name: "Soon...",
               image: "Soon...",
+              category: "Soon...",
             },
           ];
         }
         V.renderMovie(data);
       };
+
+      C.getMovieCategory = async function () {
+        let categories = await DataMovie.requestCategory();
+        let html = await MovieCategory.formatMany(categories);
+        V.renderMovieCategory(html);
+      };
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -80,6 +88,16 @@
         let content = document.querySelector("#content");
         content.innerHTML = Movieinfo.format(data);
       };
+
+
+      V.renderMovieCategory =  function (html) {
+        let cards = document.requestSelector("#movies__body");
+        cards.innerHTML = html;
+      
+      };
+
+      
+    
 
       C.start(); // Démarre l'application
     </script>
