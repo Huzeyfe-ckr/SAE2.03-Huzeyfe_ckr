@@ -60,3 +60,20 @@ function addMovie($name, $year, $length, $description, $director, $id_category, 
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
+
+
+function getInfosMovies($id){
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer le menu avec des paramètres
+    $sql = "SELECT Movie.id, Movie.name, image, description, director, year, length, Category.name AS category_name, min_age, trailer 
+    FROM Movie 
+    INNER JOIN Category ON Movie.id_category = Category.id 
+    WHERE Movie.id = :id";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+

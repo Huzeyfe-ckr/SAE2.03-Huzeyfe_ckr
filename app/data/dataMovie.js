@@ -18,6 +18,12 @@ DataMovie.request = async function(){
     return data;
 }
 
+DataMovie.requestInfosMovies = async function (id) {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=infomovies&id=" + id);
+    let movie = await answer.json();
+    return movie;
+  };
+
 /* C'EST QUOI async/await ?
     
    Il y a des instructions qui prennent du temps sans qu'on puisse prédire combien.

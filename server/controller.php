@@ -51,3 +51,16 @@ function addMoviesController(){
             return "Une erreur est survenue";
         }
     }
+
+
+    function readInfosMoviesController(){
+        // Récupération des paramètres de la requête
+        $id = $_REQUEST['id'] ;
+        $movie = getInfosMovies($id);
+        if ($movie !=0) {
+            return $movie ;
+        }
+        else{
+           return "Erreur : Tous les champs doivent être remplis.";
+        };
+    } 

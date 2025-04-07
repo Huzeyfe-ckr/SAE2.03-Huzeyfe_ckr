@@ -3,14 +3,13 @@
 
 
 #movie{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     background-color: rgb(68, 66, 105); 
-    gap: 2rem;
-    height: 100vh;
+    gap: 1rem;
+    padding: 1rem;
     font-family:Georgia, 'Times New Roman', Times, serif;
+    
     
     
 }
@@ -20,6 +19,22 @@
     flex-direction: column;
     border-radius: 0.5rem;
     overflow: hidden    ;
+   
+    
+    
+    
+        
+  
+    
+}
+.movie__figure:hover{
+    transform: scale(1.01);
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    text-decoration: underline;
+   
+    
+    
     
         
   
@@ -43,7 +58,8 @@
 .movie__images{
     display: flex;
     justify-content: center;
-    height: 20rem;
+    height: 50rem;
+    
     
     
 }
