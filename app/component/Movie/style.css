@@ -19,7 +19,9 @@
     flex-direction: column;
     border-radius: 0.5rem;
     overflow: hidden    ;
-   
+    margin: 10rem;
+     
+    
     
     
     
@@ -40,8 +42,6 @@
   
     
 }
-
-
 .movie__figcaption{
     display: flex;
     justify-content: center;
@@ -49,17 +49,46 @@
     flex-direction: row;
     background-color: rgb(255, 255, 255);
     padding-bottom: 2rem;
-    padding-top: 1rem;
-    
-
-  
-    
+    padding-top: 1rem;   
 }
 .movie__images{
     display: flex;
     justify-content: center;
     height: 50rem;
-    
-    
-    
+      
 }
+
+.movie__titre{
+    font-size: 1rem;
+}
+
+
+@media (max-width: 1024px) {
+    #movie{
+      grid-template-columns: repeat(2, 1fr);  /
+    }
+  
+    .movie__figure {
+      height: 50rem;
+      margin: 10rem;
+    }
+  
+    .movie__title {
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    #movie {
+      grid-template-columns: 1fr;  
+      gap: 1rem;  
+    }
+  
+    .movie__figure {
+      height: 50rem;  
+      margin: 10rem;
+    }
+  
+    
+  }

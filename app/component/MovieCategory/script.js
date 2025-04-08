@@ -22,12 +22,12 @@ MovieCategory.format = function(category,movies) {
 MovieCategory.formatMany = async function(categories){
     let html = "";
     for (const obj of categories) {
-      const movies = await DataMovie.requestMovieCategory(obj.category);
+      const movies = await DataMovie.requestMovieCategory(obj.id);
       if (movies.length === 0){
         continue
       }
       else{
-        html += MovieCategory.format(obj.category, movies);
+        html += MovieCategory.format(obj.name, movies);
     }
 }
     return html;

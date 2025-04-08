@@ -11,8 +11,11 @@
     <header id="header"></header>
 
     <section id="content">
+      <div id="movies__body"></div>
       <div id="movie"></div>
     </section>
+&z
+  
 
     
     <script type="module">
@@ -28,20 +31,25 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
-      C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
-        );
-      };
+      // C.handlerAbout = function () {
+      //   alert(
+      //     "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
+      //   );
+      // };
 
       C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
-        C.getMovie();
+        V.renderNavBar("C.handlerHome()");
+        C.getMovieCategory();
+      };
+
+      C.handlerHome = function () {
+        // On affiche la page d'accueil
+        C.readmovies(); // Appelle la fonction pour récupérer les films
       };
 
       C.handlerInfo = async function (id) {
         let infos = await DataMovie.requestInfosMovies(id);
-        V.renderMovieInfo(infos);
+        V.renderMovieInfo(infos[0]);
       };
 
       C.getMovie = async function () {
@@ -74,9 +82,14 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout) {
+      // V.renderNavBar = function (hAbout) {
+      //   let header = document.querySelector("#header");
+      //   header.innerHTML = NavBar.format(hAbout);
+      // };
+
+      V.renderNavBar = function (hHome) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
+        header.innerHTML = NavBar.format(hHome);
       };
 
       V.renderMovie = function (data) {
@@ -91,8 +104,8 @@
 
 
       V.renderMovieCategory =  function (html) {
-        let cards = document.requestSelector("#movies__body");
-        cards.innerHTML = html;
+        let content = document.querySelector("#movies__body");
+        content.innerHTML = html;
       
       };
 

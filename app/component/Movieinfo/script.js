@@ -11,8 +11,8 @@ Movieinfo.format = function (movie) {
   html = html.replace("{{desc}}", movie.description);
   html = html.replace("{{director}}", movie.director);
   html = html.replace("{{year}}", movie.year);
-  html = html.replace("{{length}}", movie.length+"minutes");
-  html = html.replace("{{category}}", movie.category);
+  html = html.replace("{{length}}", movie.length);
+  html = html.replace("{{category}}", movie.category_name);
   html = html.replace("{{age}}", movie.min_age);
   html = html.replace("{{url}}", movie.trailer);
 

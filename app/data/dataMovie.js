@@ -30,8 +30,8 @@ DataMovie.requestCategory = async function () {
     return data;
   };
 
-  DataMovie.requestMovieCategory = async function (category) {
-    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmoviecategory&category=" + category );
+  DataMovie.requestMovieCategory = async function (idcategory) {
+    let answer = await fetch(HOST_URL + "/server/script.php?todo=readmoviecategory&id=" +idcategory );
     let data = await answer.json();
     return data;
   };  
