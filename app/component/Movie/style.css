@@ -1,14 +1,17 @@
 
-
+.Sae203{
+  background-color: rgb(22, 21, 51); 
+}
 
 
 #movie{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    background-color: rgb(68, 66, 105); 
+    
     gap: 1rem;
     padding: 1rem;
     font-family:Georgia, 'Times New Roman', Times, serif;
+
     
     
     
@@ -19,7 +22,7 @@
     flex-direction: column;
     border-radius: 0.5rem;
     overflow: hidden    ;
-    margin: 10rem;
+    
      
     
     
@@ -34,6 +37,7 @@
     box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     text-decoration: underline;
+    transition: transform 0.3s ease-in-out;
    
     
     
@@ -47,14 +51,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: rgb(255, 255, 255);
+    background-color: #007aff;
     padding-bottom: 2rem;
-    padding-top: 1rem;   
+    padding-top: 1rem;  
+    color: azure; 
 }
 .movie__images{
     display: flex;
     justify-content: center;
-    height: 50rem;
+    height: 30rem;
+    width: 20rem;
+
       
 }
 
@@ -69,7 +76,7 @@
     }
   
     .movie__figure {
-      height: 50rem;
+      height: 30rem;
       margin: 10rem;
     }
   

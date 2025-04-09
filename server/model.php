@@ -96,9 +96,40 @@ function getMovieCategory($category){
             Movie.image, Movie.trailer, Movie.min_age, Category.id AS category_id ,Category.name AS category
             FROM Movie JOIN Category ON Movie.id_category = Category.id 
             WHERE Category.id = :category";
+
+
     $stmt = $cnx->prepare($sql);
     $stmt->bindParam(':category', $category);
     $stmt->execute();
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; 
+}
+
+
+
+
+function addProfil($name, $image, $datedenaissance) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    
+    $sql = "INSERT INTO User (name, image, datedenaissance) 
+            VALUES (:name, :image, :datedenaissance)";
+
+    $stmt = $cnx->prepare($sql);
+
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':image', $image);
+    $stmt->bindParam(':datedenaissance', $datedenaissance);
+
+    $stmt->execute();
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées par l'opération
+}
+
+
+
+function readProfile() {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, image, age FROM Profil";
+    $stmt = $cnx->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_OBJ); 
 }

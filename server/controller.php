@@ -37,7 +37,7 @@ function addMoviesController(){
         $length = $_REQUEST['length'];
         $description = $_REQUEST['description'];
         $director = $_REQUEST['director'];
-        $id_category = $_REQUEST['id_category'];
+        $id_category = $_REQUEST['categorie'];
         $image = $_REQUEST['image'];
         $trailer = $_REQUEST['trailer'];
         $min_age = $_REQUEST['min_age'];
@@ -93,3 +93,33 @@ function addMoviesController(){
            return "Erreur lors de la récupération des films de la catégorie $category";
         };
     } 
+
+
+
+
+
+    function addProfilController(){
+        $name = $_REQUEST['name'] ;
+        $image = $_REQUEST['image']  ;
+        $datedenaissance = $_REQUEST['datedenaissance']  ;
+    
+        if (empty($name) || empty($image) || empty($datedenaissance)) {
+            return "Erreur : Tous les champs doivent être remplis.";
+        }
+    
+        if (checkProfil($name)) {   
+            return "Erreur : L'utilisateur \"$name\" existe déjà.";
+        }
+    
+        $ok = addProfil($name, $image, $datedenaissance);
+        if ($ok != 0){
+            return "L'utilisateur $name a été ajouté avec succès !";
+        } else {
+            return "Erreur lors de l'ajout de l'utilisateur $name !";
+        }
+    }
+    
+    function readProfileController() {
+        $profiles = readProfile(); 
+        return $profiles ? $profiles : false;
+    }

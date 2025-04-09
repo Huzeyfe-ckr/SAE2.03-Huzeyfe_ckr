@@ -1,6 +1,20 @@
 <nav class="navbar font-sans">
   <ul class="navbar__list">
-    <!-- <li class="navbar__item" onclick="{{hAbout}}">About</li> -->
     <li class="navbar__item" onclick="window.location.href='index.html'">Home</li>
+    <select id="profile-select" class="navbar__select" onchange="{{handler}}">
+      {{profile}}
+    </select>
+  </li>
+  <img
+  id="profile-image"
+  class="navbar__image"
+  src="https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/{{image}}"
+  alt="Photo de profil"
+/>
   </ul>
 </nav>
+
+
+
+
+  

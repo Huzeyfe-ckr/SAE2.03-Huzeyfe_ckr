@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/base.css" />
   </head>
 
-  <body>
+  <body class="Sae203">
     <header id="header"></header>
 
     <section id="content">
@@ -25,6 +25,7 @@
       
       import { Movieinfo } from "./component/Movieinfo/script.js";
       import { MovieCategory } from "./component/MovieCategory/script.js";
+      import { DataProfile } from "./data/dataProfile.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -37,9 +38,11 @@
       //   );
       // };
 
-      C.start = function () {
-        V.renderNavBar("C.handlerHome()");
-        C.getMovieCategory();
+      C.start = async function () {
+        let profiles = await DataProfile.readProfile();
+        V.renderNavBar("C.handlerMovies()", "C.handlerProfile()", profiles);
+        V.renderMovieDetails();
+        C.getMovie();
       };
 
       C.handlerHome = function () {
@@ -72,6 +75,41 @@
         V.renderMovieCategory(html);
       };
 
+
+      C.changeProfile = async function (newId) {
+        newId = parseInt(newId);
+        const profiles = await DataProfile.readProfile();
+
+        const selected = profiles.find((p) => p.id === newId);
+
+        if (selected) {
+          activeProfileId = selected.id;
+          console.log("Profil sélectionné :", selected);
+          C.getMovie();
+        }
+      };
+
+      C.handlerProfile = async function () {
+    const select = document.querySelector("#profile-select");
+    const selectedOption = select.selectedOptions[0];
+    const profileName = selectedOption.value;
+    const dob = selectedOption.getAttribute("data-dob");
+    const imageFilename = selectedOption.getAttribute("data-img");
+    const picture = document.querySelector("#profile-image");
+    const base = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+
+
+    picture.src = base + imageFilename;
+
+   
+    let data = await DataMovie.requestMoviesCategory(); 
+
+
+    V.renderMovieCategory(data);
+};
+
+
+
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
 
@@ -87,9 +125,9 @@
       //   header.innerHTML = NavBar.format(hAbout);
       // };
 
-      V.renderNavBar = function (hHome) {
+      V.renderNavBar = function (hHome, hProfile, image) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome);
+        header.innerHTML = NavBar.format(hHome, hProfile, image);
       };
 
       V.renderMovie = function (data) {

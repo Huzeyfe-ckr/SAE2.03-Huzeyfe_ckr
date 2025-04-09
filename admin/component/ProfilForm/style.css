@@ -1,0 +1,41 @@
+.addProfil {
+    margin: 2rem auto;
+    border-radius: 1rem;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    width: 90vw;
+    max-width: 1600px;
+    box-shadow: 0 8px 16px rgba(0, 5, 5, 0.55);
+    color: #ecf0f1;
+    background-color: #f7eccf;
+  }
+  
+  .addProfil__form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem 2rem;
+  }
+  
+  .addProfil__span {
+    height: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  
+  
+  .addProfil__title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #000000;
+  }
+  .addProfil__button {
+    border-radius: 0.5rem;
+    background-color: rgb(255, 226, 129);
+  }
+  
+  .addProfil__button:hover {
+    cursor: pointer;
+    background-color: rgb(255, 199, 17);
+  }
+  
