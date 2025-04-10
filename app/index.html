@@ -78,22 +78,30 @@
 
 
       C.handleProfileChange = function() {
-    let select = document.getElementById('navbar__profile-select');
-    let avatarImg = document.getElementById('navbar__profile__image');
+    const select = document.getElementById('profile-select');
+    const avatarImg = document.getElementById('profile-image');
     
-    if (select.selectedIndex > 0) {
-        let selectedOption = select.options[select.selectedIndex];
-        let imageURL = selectedOption.getAttribute('data-avatar');
-        
-        if (imageURL) {
-            // Ajouter le chemin de base pour les images
-            const baseURL = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
-            avatarImg.src = baseURL + imageURL;
-        } else {
-            avatarImg.src = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/image-avatar.webp";
-        }
+    console.log('Select:', select); // Debug
+    console.log('Avatar:', avatarImg); // Debug
+    
+    if (!select || !avatarImg) {
+        console.error("Éléments HTML non trouvés");
+        return;
+    }
+
+    const baseURL = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+    const defaultImage = baseURL + "image-avatar.webp";
+
+    const selectedOption = select.options[select.selectedIndex];
+    console.log('Selected option:', selectedOption); // Debug
+    
+    if (selectedOption && selectedOption.value !== "") {
+        const avatarPath = selectedOption.getAttribute('data-avatar');
+        console.log('Avatar path:', avatarPath); // Debug
+        avatarImg.src = avatarPath ? baseURL + avatarPath : defaultImage;
         avatarImg.classList.remove('hidden');
     } else {
+        avatarImg.src = defaultImage;
         avatarImg.classList.add('hidden');
     }
 };

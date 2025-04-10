@@ -28,6 +28,11 @@
   flex-direction: row;
 }
 
+.navbar__profiles{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
 
 
 .profile-avatar{
@@ -37,4 +42,9 @@
   object-fit: cover;
   border: 2px solid #fff;
   transition: opacity 0.3s ease;
+}
+
+
+.hidden {
+  display: none;
 }

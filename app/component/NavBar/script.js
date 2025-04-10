@@ -34,9 +34,10 @@ NavBar.format = function (hHome, profiles) {
     let html = template;
     html = html.replace("{{hHome}}", hHome);
     html = html.replace("{{profileOptions}}", NavBar.profilesOptions(profiles));
-    // Définir une image par défaut
+    // Définir une image par défaut et la cacher initialement
     const defaultImage = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/image-avatar.webp";
     html = html.replace("{{imageURL}}", defaultImage);
+    html = html.replace("{{initialClass}}", "hidden"); // Ajout de la classe hidden
     
     return html;
 };
@@ -44,11 +45,9 @@ NavBar.format = function (hHome, profiles) {
 NavBar.profilesOptions = function (profiles) {
     let html = "";
     if (profiles && profiles.length > 0) {
-        // Ajouter une option par défaut
         html += '<option value="">Sélectionner un profil</option>';
         for (const obj of profiles) {
-            // Ajouter l'attribut data-avatar pour chaque option
-            html += `<option value="${obj.id}" data-avatar="${obj.avatar}">${obj.name}</option>`;
+            html += `<option value="${obj.id}" data-avatar="${obj.image}">${obj.name}</option>`;
         }
     }
     return html;
