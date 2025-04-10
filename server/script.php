@@ -78,8 +78,8 @@ case 'addProfil':
                 break;
 
 
-case 'readProfile': 
-                  $data = readProfileController();
+case 'readProfiles': 
+                  $data = readProfilesController();
                   break;
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');

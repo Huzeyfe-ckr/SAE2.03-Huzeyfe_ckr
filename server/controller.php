@@ -107,9 +107,6 @@ function addMoviesController(){
             return "Erreur : Tous les champs doivent être remplis.";
         }
     
-        if (checkProfil($name)) {   
-            return "Erreur : L'utilisateur \"$name\" existe déjà.";
-        }
     
         $ok = addProfil($name, $image, $datedenaissance);
         if ($ok != 0){
@@ -119,7 +116,9 @@ function addMoviesController(){
         }
     }
     
-    function readProfileController() {
-        $profiles = readProfile(); 
-        return $profiles ? $profiles : false;
-    }
+    function readProfilesController() {
+        $profiles = getAllProfiles();
+        return $profiles;
+
+    
+}

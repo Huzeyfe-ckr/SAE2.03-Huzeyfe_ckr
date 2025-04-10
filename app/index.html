@@ -14,7 +14,7 @@
       <div id="movies__body"></div>
       <div id="movie"></div>
     </section>
-&z
+
   
 
     
@@ -22,7 +22,7 @@
       import { DataMovie } from "./data/dataMovie.js";
       import { NavBar } from "./component/NavBar/script.js";
       import { Movie } from "./component/Movie/script.js";
-      
+     
       import { Movieinfo } from "./component/Movieinfo/script.js";
       import { MovieCategory } from "./component/MovieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js";
@@ -39,10 +39,11 @@
       // };
 
       C.start = async function () {
-        let profiles = await DataProfile.readProfile();
-        V.renderNavBar("C.handlerMovies()", "C.handlerProfile()", profiles);
-        V.renderMovieDetails();
-        C.getMovie();
+        // let profiles = await DataProfile.readProfile();
+        V.renderNavBar("C.handlerHome()");
+        C.getMovieCategory();
+
+        
       };
 
       C.handlerHome = function () {
@@ -76,37 +77,59 @@
       };
 
 
-      C.changeProfile = async function (newId) {
-        newId = parseInt(newId);
-        const profiles = await DataProfile.readProfile();
-
-        const selected = profiles.find((p) => p.id === newId);
-
-        if (selected) {
-          activeProfileId = selected.id;
-          console.log("Profil sélectionné :", selected);
-          C.getMovie();
+      C.handleProfileChange = function() {
+    let select = document.getElementById('navbar__profile-select');
+    let avatarImg = document.getElementById('navbar__profile__image');
+    
+    if (select.selectedIndex > 0) {
+        let selectedOption = select.options[select.selectedIndex];
+        let imageURL = selectedOption.getAttribute('data-avatar');
+        
+        if (imageURL) {
+            // Ajouter le chemin de base pour les images
+            const baseURL = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+            avatarImg.src = baseURL + imageURL;
+        } else {
+            avatarImg.src = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/image-avatar.webp";
         }
-      };
-
-      C.handlerProfile = async function () {
-    const select = document.querySelector("#profile-select");
-    const selectedOption = select.selectedOptions[0];
-    const profileName = selectedOption.value;
-    const dob = selectedOption.getAttribute("data-dob");
-    const imageFilename = selectedOption.getAttribute("data-img");
-    const picture = document.querySelector("#profile-image");
-    const base = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+        avatarImg.classList.remove('hidden');
+    } else {
+        avatarImg.classList.add('hidden');
+    }
+};
 
 
-    picture.src = base + imageFilename;
+//       C.changeProfile = async function (newId) {
+//         newId = parseInt(newId);
+//         const profiles = await DataProfile.readProfile();
+
+//         const selected = profiles.find((p) => p.id === newId);
+
+//         if (selected) {
+//           activeProfileId = selected.id;
+//           console.log("Profil sélectionné :", selected);
+//           C.getMovie();
+//         }
+//       };
+
+//       C.handlerProfile = async function () {
+//     const select = document.querySelector("#profile-select");
+//     const selectedOption = select.selectedOptions[0];
+//     const profileName = selectedOption.value;
+//     const dob = selectedOption.getAttribute("data-dob");
+//     const imageFilename = selectedOption.getAttribute("data-img");
+//     const picture = document.querySelector("#profile-image");
+//     const base = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+
+
+//     picture.src = base + imageFilename;
 
    
-    let data = await DataMovie.requestMoviesCategory(); 
+//     let data = await DataMovie.requestMoviesCategory(); 
 
 
-    V.renderMovieCategory(data);
-};
+//     V.renderMovieCategory(data);
+// };
 
 
 
@@ -125,9 +148,10 @@
       //   header.innerHTML = NavBar.format(hAbout);
       // };
 
-      V.renderNavBar = function (hHome, hProfile, image) {
+      V.renderNavBar = async function (hHome) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hHome, hProfile, image);
+        let profiles = await DataProfile.readProfile();
+        header.innerHTML = NavBar.format(hHome, profiles);
       };
 
       V.renderMovie = function (data) {
@@ -154,4 +178,4 @@
     </script>
   </body>
 </html>
-<script type="module"></script>
+

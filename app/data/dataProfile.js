@@ -4,7 +4,7 @@ let DataProfile = {};
 
 DataProfile.readProfile = async function () {
     let answer = await fetch(
-      HOST_URL + "/server/script.php?todo=readProfile" );
+      HOST_URL + "/server/script.php?todo=readProfiles" );
     let profile = await answer.json();
     return profile;
   };
