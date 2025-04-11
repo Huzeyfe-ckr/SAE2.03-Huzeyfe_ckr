@@ -16,6 +16,10 @@
  * 
  */
 
+ ini_set('display_errors', 1); // Affiche les erreurs PHP (pour le développement)
+ ini_set('display_startup_errors', 1); // Affiche les erreurs de démarrage PHP (pour le développement)
+ error_reporting(E_ALL); // Affiche toutes les erreurs PHP (pour le développement)
+
 /**
  * Inclusion du fichier controller.php.
  * 
@@ -81,6 +85,18 @@ case 'addProfil':
 case 'readProfiles': 
                   $data = readProfilesController();
                   break;
+
+                  case 'addNewProfil':
+                    $data = addNewProfilController();
+                    break;
+
+
+// case 'getMovieorderbyage': 
+//                     $data = getMovieOrderByAge();
+//                     break;
+
+
+
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');
       http_response_code(400); // 400 == "Bad request"

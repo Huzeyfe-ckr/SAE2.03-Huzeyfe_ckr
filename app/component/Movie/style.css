@@ -4,10 +4,9 @@
 }
 
 
-#movie{
+.movie{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    
     gap: 1rem;
     padding: 1rem;
     font-family:Georgia, 'Times New Roman', Times, serif;
@@ -18,10 +17,11 @@
 }
 
 .movie__figure{
-    display: flex;
+    
     flex-direction: column;
     border-radius: 0.5rem;
     overflow: hidden    ;
+    flex-shrink: 0;
     
      
     

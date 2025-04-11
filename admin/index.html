@@ -15,6 +15,7 @@
       import { Log } from "./component/Log/script.js";
       import { MovieForm } from "./component/MovieForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
+      import { AddNewProfilForm } from "./component/NewProfilForm/script.js";
       import { DataProfil } from "./data/dataProfil.js";
       import { ProfilForm } from "./component/ProfilForm/script.js";
 
@@ -43,11 +44,19 @@
             V.renderLog(res);
         }
 
+        C.handleraddNewProfil = async function () {
+         let form = document.querySelector(".addNewProfil__form");
+         let fd = new FormData(form);
+         let res = await DataProfil.addNewProfil(fd);
+         V.renderLog(res); 
+       };
+
 
       C.start = function () {
         V.renderLog("Démarrage de l'application");
         V.renderMovie("C.handlerUpdate()");
         V.renderAddProfil("C.handlerAddProfil()");
+        V.renderaddNewProfil ("C.handleraddNewProfil()");
       };
 
       window.V = {};
@@ -68,6 +77,11 @@
         let content = document.querySelector("#addProfil");
         content.innerHTML = ProfilForm.format(handler);
       };
+
+      V.renderaddNewProfil = function (handler) {
+         let content = document.querySelector("#content");
+         content.innerHTML += AddNewProfilForm.format(handler);
+       };
 
       C.start();
     </script>

@@ -39,13 +39,20 @@
       // };
 
       C.start = async function () {
-        // let profiles = await DataProfile.readProfile();
-        V.renderNavBar("C.handlerHome()");
-        C.getMovieCategory();
+    // Charger les profils et rendre la navbar
+    let profiles = await DataProfile.readProfile();
+    V.renderNavBar("C.handlerHome()");
+    
+    // Après avoir rendu la navbar, simuler une sélection vide pour afficher tous les films
+    const select = document.getElementById('profile-select');
+    if (select) {
+        select.value = ""; // Sélectionner l'option par défaut
+    }
+    
+    // Charger toutes les catégories avec leurs films
+    await C.getMovieCategory();
 
-        
-      };
-
+};
       C.handlerHome = function () {
         // On affiche la page d'accueil
         C.readmovies(); // Appelle la fonction pour récupérer les films
@@ -77,12 +84,9 @@
       };
 
 
-      C.handleProfileChange = function() {
+      C.handleProfileChange = async function() {
     const select = document.getElementById('profile-select');
     const avatarImg = document.getElementById('profile-image');
-    
-    console.log('Select:', select); // Debug
-    console.log('Avatar:', avatarImg); // Debug
     
     if (!select || !avatarImg) {
         console.error("Éléments HTML non trouvés");
@@ -93,16 +97,19 @@
     const defaultImage = baseURL + "image-avatar.webp";
 
     const selectedOption = select.options[select.selectedIndex];
-    console.log('Selected option:', selectedOption); // Debug
     
-    if (selectedOption && selectedOption.value !== "") {
-        const avatarPath = selectedOption.getAttribute('data-avatar');
-        console.log('Avatar path:', avatarPath); // Debug
-        avatarImg.src = avatarPath ? baseURL + avatarPath : defaultImage;
-        avatarImg.classList.remove('hidden');
-    } else {
-        avatarImg.src = defaultImage;
-        avatarImg.classList.add('hidden');
+    if (selectedOption) {
+        if (selectedOption.value === "") {
+            // Si "Tous les films" est sélectionné
+            avatarImg.classList.add('hidden');
+        } else {
+            // Si un profil est sélectionné
+            const avatarPath = selectedOption.getAttribute('data-avatar');
+            avatarImg.src = avatarPath ? baseURL + avatarPath : defaultImage;
+            avatarImg.classList.remove('hidden');
+        }
+        // Recharger les films dans tous les cas
+        await C.getMovieCategory();
     }
 };
 

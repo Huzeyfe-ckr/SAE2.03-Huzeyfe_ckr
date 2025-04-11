@@ -18,20 +18,26 @@ MovieCategory.format = function(category,movies) {
     return html
 };
 
-
-MovieCategory.formatMany = async function(categories){
+MovieCategory.formatMany = async function(categories) {
     let html = "";
+    const select = document.getElementById('profile-select');
+    const selectedOption = select ? select.selectedOptions[0] : null;
+    
     for (const obj of categories) {
-      const movies = await DataMovie.requestMovieCategory(obj.id);
-      if (movies.length === 0){
-        continue
-      }
-      else{
-        html += MovieCategory.format(obj.name, movies);
+        let movies;
+        if (!selectedOption || selectedOption.value === "") {
+            // Si aucun profil n'est sélectionné, afficher tous les films
+            movies = await DataMovie.requestMovieCategory(obj.id, null);
+        } else {
+            // Si un profil est sélectionné, filtrer par âge
+            const datedenaissance = selectedOption.getAttribute('data-dob');
+            movies = await DataMovie.requestMovieCategory(obj.id, datedenaissance);
+        }
+        
+        if (Array.isArray(movies) && movies.length > 0) {
+            html += MovieCategory.format(obj.name, movies);
+        }
     }
-}
     return html;
-  };
-
-
+};
 export { MovieCategory };

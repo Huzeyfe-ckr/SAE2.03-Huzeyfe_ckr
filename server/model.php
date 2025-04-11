@@ -86,26 +86,34 @@ function getCategories(){
     return $res; 
 }
 
-function getMovieCategory($category){
-   
-    if (empty($category)) {
-        return false;
-    }
+
+function getMovieCategories($category, $datedenaissance = null){
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    $sql = "SELECT Movie.id, Movie.name, Movie.year, Movie.length, Movie.description, Movie.director, 
-            Movie.image, Movie.trailer, Movie.min_age, Category.id AS category_id ,Category.name AS category
-            FROM Movie JOIN Category ON Movie.id_category = Category.id 
-            WHERE Category.id = :category";
-
-
-    $stmt = $cnx->prepare($sql);
-    $stmt->bindParam(':category', $category);
+    
+    // Si datedenaissance n'est pas définie, sélectionner tous les films de la catégorie
+    if ($datedenaissance == null) {
+        $sql = "SELECT Movie.*, Category.name AS category 
+                FROM Movie 
+                JOIN Category ON Movie.id_category = Category.id 
+                WHERE Category.id = :category
+                ORDER BY Movie.name ASC";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':category', $category);
+    } else {
+        // Sinon, filtrer par la date de naissance directement
+        $sql = "SELECT Movie.*, Category.name AS category 
+                FROM Movie 
+                JOIN Category ON Movie.id_category = Category.id 
+                WHERE Category.id = :category 
+                AND Movie.min_age <= :datedenaissance";
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':category', $category);
+        $stmt->bindParam(':datedenaissance', $datedenaissance);
+    }
+    
     $stmt->execute();
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; 
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
-
-
 
 
 function addProfil($name, $image, $datedenaissance) {
@@ -135,3 +143,39 @@ function getAllProfiles() {
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res;
 }
+
+
+
+function addNewProfil($Nom, $Age, $file) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    // Requête SQL d'insertion du profil
+    $sql = "INSERT INTO Profil (name, datedenaissance, image) VALUES (:name, :datedenaissance, :image) ON DUPLICATE KEY UPDATE datedenaissance = VALUES(datedenaissace), image = VALUES(image);";
+    $stmt = $cnx->prepare($sql);
+
+    // Lie les paramètres
+    $stmt->bindParam(':name', $Nom, PDO::PARAM_STR);
+    $stmt->bindParam(':datedenaissance', $Age, PDO::PARAM_INT);
+    $stmt->bindParam(':image', $file, PDO::PARAM_STR);
+
+    // Exécute la requête SQL
+    $stmt->execute();
+
+    // Retourne le nombre de lignes affectées
+    return $stmt->rowCount();
+}
+
+
+// function getMovieOrderByAge($age){
+//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+//     $sql = "SELECT Movie.id, Movie.name, image, description, director, year, length, Category.name AS category_name, min_age, trailer 
+//     FROM Movie 
+//     WHERE min_age=,< 8";
+//     $stmt = $cnx->prepare($sql);
+//     $stmt->bindParam(':id', $id);
+//     $stmt->execute();
+//     // Récupère les résultats de la requête sous forme d'objets
+//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+//     return $res; // Retourne les résultats
+// }

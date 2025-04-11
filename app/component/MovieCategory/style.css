@@ -17,9 +17,11 @@
   
   .categorie__list {
     display: flex;
-    flex-wrap: wrap;
     justify-content: flex-start;
     gap: 1.5rem;
     overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #007aff transparent;
+    -ms-overflow-style: none;
   }
   
