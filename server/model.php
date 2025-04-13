@@ -146,23 +146,25 @@ function getAllProfiles() {
 
 
 
-function addNewProfil($Nom, $Age, $file) {
-    // Connexion à la base de données
+function addNewProfil($Nom, $Age, $file, $id) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    // Requête SQL d'insertion du profil
-    $sql = "INSERT INTO Profil (name, datedenaissance, image) VALUES (:name, :datedenaissance, :image) ON DUPLICATE KEY UPDATE datedenaissance = VALUES(datedenaissace), image = VALUES(image);";
+    // Modification de la requête SQL pour faire un UPDATE au lieu d'un INSERT
+    $sql = "UPDATE Profil 
+            SET name = :name, 
+                datedenaissance = :datedenaissance, 
+                image = :image 
+            WHERE id = :id";
+
     $stmt = $cnx->prepare($sql);
 
-    // Lie les paramètres
+    // Ajout du paramètre id
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->bindParam(':name', $Nom, PDO::PARAM_STR);
     $stmt->bindParam(':datedenaissance', $Age, PDO::PARAM_INT);
     $stmt->bindParam(':image', $file, PDO::PARAM_STR);
 
-    // Exécute la requête SQL
     $stmt->execute();
-
-    // Retourne le nombre de lignes affectées
     return $stmt->rowCount();
 }
 

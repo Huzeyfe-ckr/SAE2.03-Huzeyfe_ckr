@@ -16,9 +16,9 @@
  * 
  */
 
- ini_set('display_errors', 1); // Affiche les erreurs PHP (pour le développement)
- ini_set('display_startup_errors', 1); // Affiche les erreurs de démarrage PHP (pour le développement)
- error_reporting(E_ALL); // Affiche toutes les erreurs PHP (pour le développement)
+//  ini_set('display_errors', 1); // Affiche les erreurs PHP (pour le développement)
+//  ini_set('display_startup_errors', 1); // Affiche les erreurs de démarrage PHP (pour le développement)
+//  error_reporting(E_ALL); // Affiche toutes les erreurs PHP (pour le développement)
 
 /**
  * Inclusion du fichier controller.php.
@@ -86,7 +86,7 @@ case 'readProfiles':
                   $data = readProfilesController();
                   break;
 
-                  case 'addNewProfil':
+case 'addNewProfil':
                     $data = addNewProfilController();
                     break;
 
