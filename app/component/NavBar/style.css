@@ -1,15 +1,13 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  
   padding: 1rem 3rem;
   color: var(--color-fg);
-  background-color: var(--color-bg);
-
+  background-color: #007aff;
   .navbar__item {
     --_offset: 0.2rem;
     padding: 0.5rem 1rem;
+    list-style-type: none;
     text-decoration: underline;
     text-decoration-thickness: 0.1rem;
     text-underline-offset: var(--_offset);
@@ -26,12 +24,14 @@
 .navbar__list{
   display: flex;
   flex-direction: row;
+  
 }
 
 .navbar__profiles{
   display: flex;
   flex-direction: row;
   gap: 2rem;
+
 }
 
 
@@ -48,4 +48,8 @@
 
 .hidden {
   display: none;
+}
+
+.navbar__profile-select{
+  overflow: hidden;
 }

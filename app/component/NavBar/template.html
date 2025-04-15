@@ -1,9 +1,13 @@
 <nav class="navbar font-sans">
   <ul class="navbar__list">
     <li class="navbar__item" onclick="window.location.href='index.html'">Home</li>
+    <li class="navbar__item" onclick="C.showFavoris()">Favoris</li>
   </ul>
+  <div class="searchbar">
+   
 
   <div class="navbar__profiles">
+    <input type="search" id="site-search" name="q" placeholder="Rechercher un film, une date" onkeyup="C.handlerSearch(event)"/>
     <img id="profile-image" src="{{imageURL}}" alt="Profile Image" class="profile-avatar {{initialClass}}">
     <select id="profile-select" required class="navbar__profile-select" onchange="C.handleProfileChange()">
         <option value="" disabled selected>Sélectionner un profil</option>

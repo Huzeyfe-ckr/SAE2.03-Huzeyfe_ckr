@@ -41,4 +41,46 @@ DataMovie.requestCategory = async function () {
     let data = await response.json();
     return data;
 };
+
+
+DataMovie.addFavoris = async function(id_profil, id_movie) {
+  let url = `${HOST_URL}/server/script.php?todo=addFavoris&id_profil=${id_profil}&id_movie=${id_movie}`;
+  let response = await fetch(url);
+  let data = await response.json();
+  return data;
+};
+
+
+DataMovie.getFavoris = async function(id_profil) {
+  let url = `${HOST_URL}/server/script.php?todo=readFavoris&id_profil=${id_profil}`;
+  let response = await fetch(url);
+  let data = await response.json();
+  return data;
+}
+
+DataMovie.deleteFavoris = async function (id_profil, id_movie) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=deleteFavoris&id_profil=" + id_profil + "&id_movie=" + id_movie
+  );
+
+  let data = await answer.json();
+  return data;
+};
+
+
+
+
+DataMovie.getMovieAvant = async function() {
+  let response = await fetch(HOST_URL + '/server/script.php?todo=getMovieAvant');
+  let data = await response.json();
+  return data;
+  };
+
+
+
+  DataMovie.searchMovies = async function(keyword) {
+    let response = await fetch(`${HOST_URL}/server/script.php?todo=searchMovies&keyword=${encodeURIComponent(keyword)}`);
+    let data = await response.json();
+    return data;
+};
 export {DataMovie};

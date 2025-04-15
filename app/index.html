@@ -11,6 +11,7 @@
     <header id="header"></header>
 
     <section id="content">
+      <div id="miseenavant"></div>
       <div id="movies__body"></div>
       <div id="movie"></div>
     </section>
@@ -26,6 +27,8 @@
       import { Movieinfo } from "./component/Movieinfo/script.js";
       import { MovieCategory } from "./component/MovieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js";
+      import { Favoris } from "./component/Favoris/script.js";
+      import { Miseenavant } from "./component/Miseenavant/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -43,11 +46,8 @@
     let profiles = await DataProfile.readProfile();
     V.renderNavBar("C.handlerHome()");
     
-    // Après avoir rendu la navbar, simuler une sélection vide pour afficher tous les films
-    const select = document.getElementById('profile-select');
-    if (select) {
-        select.value = ""; // Sélectionner l'option par défaut
-    }
+    // Charger les films mis en avant
+    await C.handlerMovieAvant();
     
     // Charger toutes les catégories avec leurs films
     await C.getMovieCategory();
@@ -114,6 +114,126 @@
 };
 
 
+C.handlerAddFavoris = async function(id_movie) {
+    const select = document.querySelector("#profile-select");
+    if (!select.value) {
+        alert("Veuillez sélectionner un profil pour ajouter aux favoris");
+        return;
+    }
+    
+    const id_user = select.value;
+    if (!id_user || !id_movie) return;
+
+    const response = await DataMovie.addFavoris(id_user, id_movie);
+    if (response) {
+        alert("Film ajouté aux favoris");
+    }
+};
+
+
+C.showFavoris = async function() {
+    const select = document.getElementById('profile-select');
+    if (!select || !select.value) {
+        alert("Veuillez sélectionner un profil pour voir vos favoris");
+        return;
+    }
+
+    const id_profil = select.value;
+    const favoris = await DataMovie.getFavoris(id_profil);
+    
+    const content = document.querySelector("#content");
+    if (content) {
+        content.innerHTML = "";
+        content.innerHTML = Favoris.format(favoris);
+    }
+};
+
+
+C.removeFavoris = async function(movieId) {
+    const select = document.getElementById('profile-select');
+    if (!select || !select.value) {
+        alert("Erreur: Aucun profil sélectionné");
+        return;
+    }
+
+    const userId = select.value;
+    const result = await DataMovie.deleteFavoris(userId, movieId);
+    
+    if (result) {
+      alert("Le film a été retiré des favoris avec succès!");
+        C.showFavoris();
+    } else {
+        alert("Erreur lors de la suppression du favori");
+    }
+};
+
+
+C.handlerMovieAvant = async function () {
+      const movies = await DataMovie.getMovieAvant();
+
+      if (movies.length === 0) {
+        document.querySelector("#miseenavant").innerHTML = `<p class="no-movie">Aucun film mis en avant pour le moment.</p>`;
+      } else {
+        V.renderMiseenavant(movies);
+      }
+    };
+
+    C.scrollLeft = function() {
+    const container = document.querySelector('.miseenavant__movies');
+    if (container) {
+        const slideWidth = container.clientWidth;
+        container.scrollBy({
+            left: -slideWidth,
+            behavior: 'smooth'
+        });
+    }
+};
+
+C.scrollRight = function() {
+    const container = document.querySelector('.miseenavant__movies');
+    if (container) {
+        const slideWidth = container.clientWidth;
+        container.scrollBy({
+            left: slideWidth,
+            behavior: 'smooth'
+        });
+    }
+};
+
+
+C.handlerSearch = async function(event) {
+    const keyword = event.target.value;
+    
+    // Si le champ de recherche est vide, afficher tous les films
+    if (!keyword.trim()) {
+        await C.getMovieCategory();
+        return;
+    }
+    
+    // Effectuer la recherche
+    const movies = await DataMovie.searchMovies(keyword);
+    
+    // Afficher les résultats
+    const content = document.querySelector("#content");
+    if (content) {
+        content.innerHTML = "";
+        if (movies.length > 0) {
+            content.innerHTML = `
+                <section class="categorie">
+                    <h2 class="categorie__title">Résultats de recherche</h2>
+                    <div class="categorie__list">
+                        ${Movie.formatMany(movies)}
+                    </div>
+                </section>`;
+        } else {
+            content.innerHTML = `
+                <p style="color: white; text-align: center; margin-top: 2rem;">
+                    Aucun film trouvé pour "${keyword}"
+                </p>`;
+        }
+    }
+};
+
 //       C.changeProfile = async function (newId) {
 //         newId = parseInt(newId);
 //         const profiles = await DataProfile.readProfile();
@@ -166,7 +286,7 @@
       V.renderNavBar = async function (hHome) {
         let header = document.querySelector("#header");
         let profiles = await DataProfile.readProfile();
-        header.innerHTML = NavBar.format(hHome, profiles);
+        header.innerHTML = NavBar.format(hHome, profiles, "C.handlerFavoris()");
       };
 
       V.renderMovie = function (data) {
@@ -185,6 +305,10 @@
         content.innerHTML = html;
       
       };
+      V.renderMiseenavant = function (data) {
+    let content = document.querySelector("#miseenavant");
+    content.innerHTML = Miseenavant.format(data);
+    };
 
       
     

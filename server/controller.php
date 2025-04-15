@@ -48,7 +48,7 @@ function addMoviesController(){
             return "Le film $name a correctement été ajouté à la base de donnée";
         }
         else{
-            return "Une erreur est survenue";
+            return "Champ manquant ou problème de connexion";
         }
     }
 
@@ -124,44 +124,101 @@ function addMoviesController(){
 }
 
 
+
 function addNewProfilController() {
-    try {
-        if (empty($_POST['Nom'])) {
-            return "Erreur : Le Nom est obligatoire.";
-        }
-        
-        if (empty($_POST['Age'])) {
-            return "Erreur : L'Age est obligatoire.";
-        }
-
-        if (empty($_POST['id'])) {
-            return "Erreur : L'id est obligatoire.";
-        }
-        
-        $Nom = $_POST['Nom'];
-        $Age = $_POST['Age'];
-        $id = $_POST['id'];
-        $file = "default-avatar.png";
-
-        // Gestion du fichier
-        if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-            $upload_dir = "./images/";
-            if (!is_dir($upload_dir)) {
-                mkdir($upload_dir, 0777, true);
-            }
-            
-            $filename = basename($_FILES['file']['name']);
-            $upload_file = $upload_dir . $filename;
-            
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
-                $file = $filename;
-            }
-        }
-        // Appel de la fonction du modèle
-        $ok = addNewProfil($Nom, $Age, $file, $id);
-        return $ok ? "Profil modifié avec succès" : "Erreur lors de le la modification du profil";
-        
-    } catch (Exception $e) {
-        return "Erreur: " . $e->getMessage();
+    if (empty($_POST['Nom'])) {
+        return "Erreur : Le Nom est obligatoire.";
     }
+    
+    if (empty($_POST['Age'])) {
+        return "Erreur : L'Age est obligatoire.";
+    }
+
+    if (empty($_POST['id'])) {
+        return "Erreur : L'id est obligatoire.";
+    }
+    
+    $Nom = $_POST['Nom'];
+    $Age = $_POST['Age'];
+    $id = $_POST['id'];
+    $file = "default-avatar.png";
+
+    // Gestion du fichier
+    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = "./images/";
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+        
+        $filename = basename($_FILES['file']['name']);
+        $upload_file = $upload_dir . $filename;
+        
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
+            $file = $filename;
+        }
+    }
+    // Appel de la fonction du modèle
+    $ok = addNewProfile($Nom, $Age, $file, $id);
+    return $ok ? "Profil ajouté avec succès" : "Erreur lors de l'ajout du profil";
 }
+
+
+function addFavorisController() {
+    $user = $_REQUEST['id_profil'] ?? null;  // Changé de id_user à id_profil pour correspondre au frontend
+    $movie = $_REQUEST['id_movie'] ?? null;
+
+    if (empty($user) || empty($movie)) {
+        return false;
+    }
+
+    $result = addFavoris($user, $movie);
+    return $result > 0 ? true : false;
+}
+
+
+
+function readFavorisController() {
+    $user_id = $_REQUEST['id_profil'] ?? null;
+    
+    if (!$user_id) {
+        return false;
+    }
+    
+    return getFavoris($user_id);
+}
+
+
+
+
+
+
+function deleteFavorisController() {
+    $id_user = $_REQUEST['id_profil'] ?? null;
+    $id_movie = $_REQUEST['id_movie'] ?? null;
+    $result = deleteFavoris($id_movie, $id_user);
+    if ($result) {
+        return ["success" => "Film supprimé des favoris."];
+    } else {
+        return ["error" => "Impossible de supprimer le film des favoris."];
+    }
+  }
+
+
+  function readMovieAvantController(){
+    $movies = getMovieAvant();
+    error_log(json_encode($movies));
+    return $movies;
+  }
+
+
+function searchMoviesController() {
+    $keyword = $_REQUEST['keyword'] ?? '';
+    if (empty($keyword)) {
+        return [];
+    }
+    $movies = searchMovies($keyword);
+    return $movies;
+}
+
+
+ 

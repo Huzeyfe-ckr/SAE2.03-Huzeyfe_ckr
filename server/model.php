@@ -169,15 +169,106 @@ function addNewProfil($Nom, $Age, $file, $id) {
 }
 
 
-// function getMovieOrderByAge($age){
-//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-//     $sql = "SELECT Movie.id, Movie.name, image, description, director, year, length, Category.name AS category_name, min_age, trailer 
-//     FROM Movie 
-//     WHERE min_age=,< 8";
-//     $stmt = $cnx->prepare($sql);
-//     $stmt->bindParam(':id', $id);
-//     $stmt->execute();
-//     // Récupère les résultats de la requête sous forme d'objets
-//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-//     return $res; // Retourne les résultats
-// }
+function removefavoris($user, $movie)
+    {
+        $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+        $sql = 'DELETE FROM Likes WHERE id_user = :id_user AND id_movie = :id_movie';
+        $stmt = $cnx->prepare($sql);
+        $stmt->bindParam(':id_user', $user);
+        $stmt->bindParam(':id_movie', $movie);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+
+
+
+function addFavoris($user, $movie) {
+    $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+
+    // Vérifier si le favori existe déjà
+    $check_sql = "SELECT COUNT(*) FROM Favoris WHERE id_user = :user AND id_movie = :movie";
+    $check_stmt = $cnx->prepare($check_sql);
+    $check_stmt->bindParam(':user', $user);
+    $check_stmt->bindParam(':movie', $movie);
+    $check_stmt->execute();
+    
+    if ($check_stmt->fetchColumn() > 0) {
+        return 0; // Le favori existe déjà
+    }
+
+    // Ajouter le nouveau favori
+    $sql = 'INSERT INTO Favoris (id_user, id_movie) VALUES (:user, :movie)';
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':user', $user);
+    $stmt->bindParam(':movie', $movie);
+    $stmt->execute();
+    
+    return $stmt->rowCount();
+}
+
+
+
+function getFavoris($user_id) {
+    $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+    
+    $sql = "SELECT m.* 
+            FROM Movie m 
+            JOIN Favoris f ON m.id = f.id_movie 
+            WHERE f.id_user = :user_id
+            ORDER BY m.name ASC";
+            
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+    
+    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $result ? $result : [];
+}
+
+
+
+
+function deleteFavoris($id_movie, $id_user) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    $sql = "DELETE FROM Favoris WHERE id_movie = :id_movie AND id_user = :id_user";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
+    $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->rowCount() > 0;
+}
+
+function getMovieAvant() {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+  
+    $sql = "SELECT id, name, image, description 
+    FROM Movie 
+    WHERE miseenavant = '1'";
+  
+    $stmt = $cnx->prepare($sql);
+    $stmt->execute();
+  
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+  }
+
+
+
+function searchMovies($keyword) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+  
+    $sql = "SELECT id, name, image, min_age 
+            FROM Movie 
+            WHERE name LIKE :keyword
+            OR year LIKE :keyword
+            OR director LIKE :keyword
+            ORDER BY name ASC";
+  
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindValue(':keyword', '%' . $keyword . '%', PDO::PARAM_STR);
+    $stmt->execute();
+  
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}

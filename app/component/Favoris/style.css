@@ -1,0 +1,21 @@
+.favoris_list{
+    display: flex;
+    flex-direction: row;
+        flex-wrap: wrap;
+    
+}
+
+@media screen and (min-width: 1800px) {
+    .favoris_list{
+        
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    }
+    
+}

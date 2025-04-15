@@ -10,6 +10,7 @@
     gap: 1rem;
     padding: 1rem;
     font-family:Georgia, 'Times New Roman', Times, serif;
+    
 
     
     
@@ -22,6 +23,8 @@
     border-radius: 0.5rem;
     overflow: hidden    ;
     flex-shrink: 0;
+    position: relative;
+
     
      
     
@@ -69,16 +72,49 @@
     font-size: 1rem;
 }
 
+.movie__favoris{
+    position: absolute;
+    top: 20px;  
+    right: 20px;
+    padding: 1rem;
+    background-color: #007aff ;
+    border-radius: 50%;
+
+  
+}
+.movie__favoris::before{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top:  -14px; ;
+    left: -12px;
+    width: 2rem;
+    height: 2rem;
+    background-color: #007aff;
+    border-radius: 50%;
+    
+
+}
+
+
+.movie__favoris:checked {
+  
+  background-color: #000000  !important;
+  border: solid 2px red !important;
+  
+  
+
+
+}
+
 
 @media (max-width: 1024px) {
     #movie{
       grid-template-columns: repeat(2, 1fr);  /
     }
   
-    .movie__figure {
-      height: 30rem;
-      margin: 10rem;
-    }
+    
   
     .movie__title {
       font-size: 1.5rem;
@@ -92,10 +128,6 @@
       gap: 1rem;  
     }
   
-    .movie__figure {
-      height: 50rem;  
-      margin: 10rem;
-    }
-  
+    
     
   }

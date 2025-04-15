@@ -1,0 +1,104 @@
+.miseenavant {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.miseenavant__title {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 2rem;
+    padding-left: 0.5rem;
+    border-left: 8px solid #007aff;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.miseenavant__movies {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 100px);
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    background-color: rgb(22, 21, 51);
+}
+
+.movie__avant {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: row-reverse; /* Changé de row à row-reverse */
+}
+
+.movie__affiche {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie__hover {
+    position: relative;
+    width: 50%;
+    padding: 4rem;
+    background: linear-gradient(270deg, rgba(0,0,0,0.9), transparent); /* Changé de 90deg à 270deg */
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie__avant:hover .movie__hover {
+    opacity: 1;
+}
+
+.avant__title {
+    color: #007aff;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: bold;
+}
+
+.avant__desc {
+    color: white;
+    font-size: 1.4rem;
+    max-width: 800px;
+    line-height: 1.8;
+    opacity: 0.8;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 122, 255, 0.8);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    
+}
+
+.scroll-btn.left {
+    left: 2rem;
+}
+
+.scroll-btn.right {
+    right: 2rem;
+}
+
+.scroll-btn:hover {
+    background: rgba(0, 86, 179, 0.9);
+}
