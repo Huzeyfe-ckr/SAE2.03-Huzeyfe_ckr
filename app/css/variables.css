@@ -1,15 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap");
 
+
 :root {
   /* Primitive Tokens */
-  --color-black: hsl(253, 69%, 8%);
+  --color-black: #000000;
+  --color-blue--back: #000a33 ;
+  --color-blue--nav :#0d0d0e;
   --color-white: hsl(0, 0%, 100%);
-  --color-gray-light: hsl(0, 0%, 80%);
-  --color-gray: hsl(0, 0%, 50%);
-  --color-gray-dark: hsl(0, 0%, 20%);
+  --color-white--back: #EEEEEE;
+  --color-gray--dark: hsl(0, 0%, 65%);
+  --color-yellow: #FFC107;
+  --color-gray--but: #151619;
+  --color-gray--darks: rgb(255, 255, 255, 0.2);
+  --color-blue: #007aff ;
+  --color-black--shadow:rgba(0, 0, 0, 0.5);
   --ff-sans: "DM sans", sans-serif;
 
   /* Sementic Tokens */
   --color-fg: var(--color-white);
-  --color-bg: var(--color-gray-dark);
+  --color-bg: var(--color-gray--dark);
+  --color-hg: var(--color-yellow);
+  --color-jg: var(--color-blue--back);
+  --color-kg: var(--color-blue--nav);
+  --color-lg: var(--color-white--back);
+  --color-mg: var(--color-gray--but);
+  --color-ng: var(--color-gray--darks);
+  --color-og: var(--color-blue);
+  --color-pg:var(--color-black--shadow);
+
+
+
+
 }
+
+  

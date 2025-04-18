@@ -1,0 +1,18 @@
+<figure class="movie__figure" onclick="{{handler}}">
+  <img class="movie__images" src="../server/images/{{imgs}}" alt="images" />
+  <figcaption class="movie__figcaption">
+    <p class="movie__titre">{{title}}</p>
+  </figcaption>
+  <input
+  type="checkbox"
+  class="movie__favoris"
+  data-id="{{id}}"
+  
+  onclick="event.stopPropagation(); {{handlerFavoris}}"
+  title="Gérer les favoris"
+  checked
+>
+
+  
+  
+</figure>

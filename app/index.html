@@ -234,6 +234,17 @@ C.handlerSearch = async function(event) {
     }
 };
 
+C.toggleMenu = function() {
+    const menu = document.querySelector('.navbar__menu');
+    menu.classList.toggle('active');
+    
+    // Animation du burger
+    const burger = document.querySelector('.burger-menu');
+    burger.classList.toggle('active');
+};
+
+
+
 //       C.changeProfile = async function (newId) {
 //         newId = parseInt(newId);
 //         const profiles = await DataProfile.readProfile();

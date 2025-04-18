@@ -1,6 +1,6 @@
 
 .Sae203{
-  background-color: rgb(22, 21, 51); 
+  background-color: var(--color-blue--back); 
 }
 
 
@@ -37,7 +37,7 @@
 }
 .movie__figure:hover{
     transform: scale(1.01);
-    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.5rem 0.9rem rgba(0, 0, 0, 0.2);
     cursor: pointer;
     text-decoration: underline;
     transition: transform 0.3s ease-in-out;
@@ -54,10 +54,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    background-color: #007aff;
+    background-color: var(--color-blue);
     padding-bottom: 2rem;
     padding-top: 1rem;  
-    color: azure; 
+    color: var(--color-white--back); 
 }
 .movie__images{
     display: flex;
@@ -74,10 +74,10 @@
 
 .movie__favoris{
     position: absolute;
-    top: 20px;  
-    right: 20px;
+    top: 1.25rem;  
+    right: 1.25rem;
     padding: 1rem;
-    background-color: #007aff ;
+    background-color: var(--color-blue);
     border-radius: 50%;
 
   
@@ -87,47 +87,16 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top:  -14px; ;
-    left: -12px;
+    top:  -1rem; ;
+    left: -0.75rem;
     width: 2rem;
     height: 2rem;
-    background-color: #007aff;
+    background-color: var(--color-blue);
     border-radius: 50%;
     
 
 }
 
 
-.movie__favoris:checked {
-  
-  background-color: #000000  !important;
-  border: solid 2px red !important;
-  
-  
 
 
-}
-
-
-@media (max-width: 1024px) {
-    #movie{
-      grid-template-columns: repeat(2, 1fr);  /
-    }
-  
-    
-  
-    .movie__title {
-      font-size: 1.5rem;
-      padding: 1rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    #movie {
-      grid-template-columns: 1fr;  
-      gap: 1rem;  
-    }
-  
-    
-    
-  }

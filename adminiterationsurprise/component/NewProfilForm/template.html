@@ -1,0 +1,10 @@
+<div class="addNewProfil">  
+  <h4 class="addNewProfil__title"># Modifier un Profil</h4>
+  <form class="addNewProfil__form">
+      <input required type="number" name="id" placeholder="id du profil" title="Veuillez insérer votre id"/>
+      <input required type="text" name="Nom" placeholder="nom du profil" pattern="[^0-9]*" title="Saisissez votre nom de profil"/>
+      <input required type="text" name="Age" placeholder="Age du profil" pattern="[^0-9]*" title="Saisissez votre âge"/>
+      <input required type="file" name="file" accept=".jpg,.jpeg,.png" title="Veuillez insérer votre image"/>
+      <input class="addNewProfil__button" onclick="{{handler}}" type="button" value="Modifier" name="todo" />
+  </form>
+</div>

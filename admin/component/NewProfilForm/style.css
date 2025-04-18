@@ -4,7 +4,6 @@
     padding: 2rem;
     font-family: Arial, sans-serif;
     width: 90vw;
-    max-width: 1750px;
     box-shadow: 0 8px 16px rgba(0, 5, 5, 0.55);
     color: #ecf0f1;
     background-color: #f7eccf;
@@ -12,7 +11,7 @@
 
 .addNewProfil__form {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     gap: 1.5rem 2rem;
 }
 

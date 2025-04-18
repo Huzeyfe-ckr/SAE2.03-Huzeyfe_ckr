@@ -1,55 +1,164 @@
+/* Styles par défaut (mobile) */
 .navbar {
   display: flex;
   justify-content: space-between;
   padding: 1rem 3rem;
   color: var(--color-fg);
-  background-color: #007aff;
-  .navbar__item {
-    --_offset: 0.2rem;
-    padding: 0.5rem 1rem;
-    list-style-type: none;
-    text-decoration: underline;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
-    cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
-    &:hover {
-      --_offset: 0.5rem;
-    }
-  }
+  background-color: var(--color-blue);
+  position: relative;
 }
 
 
 
-.navbar__list{
+.navbar__menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  transition: 0.3s;
+  z-index: 98;
+  background-color: var(--color-blue);
+}
+
+.navbar__menu.active {
+  left: 0;
+}
+
+.navbar__list {
   display: flex;
-  flex-direction: row;
-  
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+  height: 100%;
 }
 
-.navbar__profiles{
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-
+.navbar__search {
+  display: block;
+  width: 80%;
+  margin: 1.25rem auto;
 }
 
-
-.profile-avatar{
+.navbar__profile__avatar {
   width: 2.5rem;
   height: 2.5rem;
   border: solid 2px var(--color-fg);
   border-radius: 50%;
   object-fit: cover;
-  
   transition: opacity 0.3s ease;
-}
-
-
-.hidden {
   display: none;
 }
 
-.navbar__profile-select{
-  overflow: hidden;
+.navbar__profiles {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  position: relative;
+  z-index: 101;
 }
+
+/* Styles communs */
+.navbar__profile__select {
+  overflow: hidden;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.navbar__logos {
+  width: 10rem;
+}
+
+
+/* Styles burger menu */
+.burger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 100;
+}
+
+.burger-menu div {
+  width: 1.5rem;
+  height: 0.2rem;
+  margin: 0.3rem 0;
+  transition: 0.3s;
+}
+.burger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 100;
+}
+
+.burger-menu div {
+  width: 1.5rem;
+  height: 0.2rem;
+  background-color: var(--color-fg);
+  margin: 0.3rem 0;
+  transition: 0.3s;
+}
+/* Animation du burger */
+.burger-menu.active div:nth-child(1) {
+  transform: rotate(-45deg) translate(-0.3rem, 0.4px);
+}
+
+.burger-menu.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active div:nth-child(3) {
+  transform: rotate(45deg) translate(-0.3rem, -0.4px);
+}
+
+/* Menu mobile */
+.navbar__menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  transition: 0.3s;
+  z-index: 98;
+  background-color: var(--color-black--nav);
+}
+
+.navbar__menu.active {
+  left: 0;
+}
+/* Styles desktop */
+@media (min-width: 769px) {
+  .burger-menu {
+    display: none;
+  }
+
+  .navbar__menu {
+    position: static;
+    height: auto;
+    width: auto;
+    background-color: transparent;
+    left: 0;
+    list-style-type: none;
+  }
+
+  .navbar__list {
+    flex-direction: row;
+    padding: 0;
+    height: auto;
+    gap: 2rem;
+    list-style-type: none;
+  }
+
+  .navbar__search {
+    width: 10rem;
+  }
+
+  .navbar__profile__avatar {
+    display: block;
+  }
+
+  .navbar__profile__select {
+    overflow: hidden;
+    width: 12rem;    
+  }
+}
+

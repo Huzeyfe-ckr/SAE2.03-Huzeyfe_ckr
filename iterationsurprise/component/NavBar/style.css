@@ -1,0 +1,120 @@
+/* Styles par défaut (mobile) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  color: var(--color-fg);
+  background-color: var(--color-black--nav);
+  position: relative;
+}
+
+.burger-menu {
+  display: block;
+  cursor: pointer;
+  padding: 0.625rem;
+  z-index: 100;
+}
+
+.burger-menu div {
+  width: 1.5rem;
+  height: 0.2rem;
+  background-color: var(--color-white--back);
+  margin: 0.4rem 0;
+  transition: 0.3s;
+}
+
+.navbar__menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  transition: 0.3s;
+  z-index: 98;
+  background-color: var(--color-black--nav);
+}
+
+.navbar__menu.active {
+  left: 0;
+}
+
+.navbar__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+  height: 100%;
+}
+
+.navbar__search {
+  display: block;
+  width: 80%;
+  margin: 1.25rem auto;
+}
+
+.navbar__profile__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: solid 2px var(--color-fg);
+  border-radius: 50%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+.navbar__profiles {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  position: relative;
+  z-index: 101;
+}
+
+/* Styles communs */
+.navbar__profile__select {
+  overflow: hidden;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.navbar__logo {
+  width:  20rem;
+}
+
+/* Styles desktop */
+@media (min-width: 769px) {
+  .burger-menu {
+    display: none;
+  }
+
+  .navbar__menu {
+    position: static;
+    height: auto;
+    width: auto;
+    background-color: transparent;
+    left: 0;
+    list-style-type: none;
+  }
+
+  .navbar__list {
+    flex-direction: row;
+    padding: 0;
+    height: auto;
+    gap: 2rem;
+    list-style-type: none;
+  }
+
+  .navbar__search {
+    width: 10rem;
+  }
+
+  .navbar__profile__avatar {
+    display: block;
+  }
+
+  .navbar__profile__select {
+    overflow: hidden;
+    width: 12rem;    
+  }
+}
+

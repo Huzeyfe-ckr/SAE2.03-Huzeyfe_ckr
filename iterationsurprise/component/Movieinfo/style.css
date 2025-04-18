@@ -1,0 +1,121 @@
+
+  .movie__info {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    
+    
+}
+
+.movie__info__image {
+  width: 100%;
+  object-fit: cover;
+  width: 25rem;
+  height: 30rem;
+}
+
+.movie__info__body {
+    
+    max-width: 75rem;
+    padding: 3rem 1rem;
+    align-items: start;
+    background-color: var(--color-black--back)
+}
+
+.movie__info__content {
+    padding: 1rem;
+    background-color: var(--color-black--back)
+}
+
+.movie__info__title{
+    color: var(--color-white--back);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 1.5rem;
+    text-shadow: 0 0.125 0.25rem var(--color-gray--darks);
+    font-family: var(--ff-Bebas);
+    letter-spacing: 0.1rem;
+}
+
+.movie__info__desc {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--color-white--back);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 37.5rem;
+    opacity: 0.9;
+}
+
+
+.movie__info__li {
+    
+    color: var(--color-white--back);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.movie__info__li span {
+    background-color: var(--color-gray--darks);;
+    color: var(--color-white--back);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-gray--darks);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+
+
+.movie__info__trailer {
+    width: 100%;
+    height: 25rem;
+    border-radius: 0.75;
+    box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.5);
+
+    transition: transform 0.3s ease;
+}
+
+.movie__info__trailer:hover {
+    transform: scale(1.02);
+}
+
+@media screen and (min-width: 769px) {
+    .movie__info {
+        flex-direction: row;  
+        justify-content: center;
+        align-items: flex-start;
+        gap: 4rem;
+        padding: 4rem;
+    }
+
+    .movie__info__image {
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;  
+        width: auto ;
+        height: 100%;
+        max-width: 25rem;
+        margin-right: 2rem;  
+    }
+
+    .movie__info__body {
+        margin-left: 2rem;
+        padding: 0;
+    }
+
+    .movie__info__title {
+        margin-top: 0;
+    }
+
+    .movie__info__desc {
+        max-width: none;
+        margin-bottom: 2rem;  
+    }
+}

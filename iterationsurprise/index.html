@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>SAE2.03 APP</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+
+  <body class="Sae203">
+    <header id="header"></header>
+
+    <section id="content">
+      
+      <div id="miseenavant"></div>
+      <h1 class="categorie__bigtitle">Films en streaming à regarder sur Molotov</h1>
+      <div id="movies__body"></div>
+      <div id="movie"></div>
+      <div id="footer"></div>
+    </section>
+
+  
+
+    
+    <script type="module">
+      import { DataMovie } from "./data/dataMovie.js";
+      import { NavBar } from "./component/NavBar/script.js";
+      import { Movie } from "./component/Movie/script.js";
+     
+      import { Movieinfo } from "./component/Movieinfo/script.js";
+      import { MovieCategory } from "./component/MovieCategory/script.js";
+      import { DataProfile } from "./data/dataProfile.js";
+      import { Favoris } from "./component/Favoris/script.js";
+      import { Miseenavant } from "./component/Miseenavant/script.js";
+      import { Footer } from "./component/Footer/script.js";
+
+      // Controleur
+      // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
+      // Une fois l'application terminée, on pourrait remettre let C.
+      window.C = {};
+
+      // C.handlerAbout = function () {
+      //   alert(
+      //     "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
+      //   );
+      // };
+
+      C.start = async function () {
+    // Charger les profils et rendre la navbar
+    let profiles = await DataProfile.readProfile();
+    V.renderNavBar("C.handlerHome()");
+    V.renderFooter();
+    
+    
+    // Charger les films mis en avant
+    await C.handlerMovieAvant();
+    
+    // Charger toutes les catégories avec leurs films
+    await C.getMovieCategory();
+
+};
+      C.handlerHome = function () {
+        // On affiche la page d'accueil
+        C.readmovies(); // Appelle la fonction pour récupérer les films
+      };
+
+      C.handlerInfo = async function (id) {
+        let infos = await DataMovie.requestInfosMovies(id);
+        V.renderMovieInfo(infos[0]);
+      };
+
+      C.getMovie = async function () {
+        let data = await DataMovie.request();
+        if (data.length == 0) {
+          data = [
+            {
+              name: "Soon...",
+              image: "Soon...",
+              category: "Soon...",
+            },
+          ];
+        }
+        V.renderMovie(data);
+      };
+
+      C.getMovieCategory = async function () {
+        let categories = await DataMovie.requestCategory();
+        let html = await MovieCategory.formatMany(categories);
+        V.renderMovieCategory(html);
+      };
+
+
+      C.handleProfileChange = async function() {
+    const select = document.getElementById('profile-select');
+    const avatarImg = document.getElementById('profile-image');
+    
+    if (!select || !avatarImg) {
+        console.error("Éléments HTML non trouvés");
+        return;
+    }
+
+    const baseURL = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+    const defaultImage = baseURL + "image-avatar.webp";
+
+    const selectedOption = select.options[select.selectedIndex];
+    
+    if (selectedOption) {
+        if (selectedOption.value === "") {
+            // Si "Tous les films" est sélectionné
+            avatarImg.classList.add('hidden');
+        } else {
+            // Si un profil est sélectionné
+            const avatarPath = selectedOption.getAttribute('data-avatar');
+            avatarImg.src = avatarPath ? baseURL + avatarPath : defaultImage;
+            avatarImg.classList.remove('hidden');
+        }
+        // Recharger les films dans tous les cas
+        await C.getMovieCategory();
+    }
+};
+
+
+C.handlerAddFavoris = async function(id_movie) {
+    const select = document.querySelector("#profile-select");
+    if (!select.value) {
+        alert("Veuillez sélectionner un profil pour ajouter aux favoris");
+        return;
+    }
+    
+    const id_user = select.value;
+    if (!id_user || !id_movie) return;
+
+    const response = await DataMovie.addFavoris(id_user, id_movie);
+    if (response) {
+        alert("Film ajouté aux favoris");
+    }
+};
+
+
+C.showFavoris = async function() {
+    const select = document.getElementById('profile-select');
+    if (!select || !select.value) {
+        alert("Veuillez sélectionner un profil pour voir vos favoris");
+        return;
+    }
+
+    const id_profil = select.value;
+    const favoris = await DataMovie.getFavoris(id_profil);
+    
+    const content = document.querySelector("#content");
+    if (content) {
+        content.innerHTML = "";
+        content.innerHTML = Favoris.format(favoris);
+    }
+};
+
+
+C.removeFavoris = async function(movieId) {
+    const select = document.getElementById('profile-select');
+    if (!select || !select.value) {
+        alert("Erreur: Aucun profil sélectionné");
+        return;
+    }
+
+    const userId = select.value;
+    const result = await DataMovie.deleteFavoris(userId, movieId);
+    
+    if (result) {
+      alert("Le film a été retiré des favoris avec succès!");
+        C.showFavoris();
+    } else {
+        alert("Erreur lors de la suppression du favori");
+    }
+};
+
+
+C.handlerMovieAvant = async function () {
+      const movies = await DataMovie.getMovieAvant();
+
+      if (movies.length === 0) {
+        document.querySelector("#miseenavant").innerHTML = `<p class="no-movie">Aucun film mis en avant pour le moment.</p>`;
+      } else {
+        V.renderMiseenavant(movies);
+      }
+    };
+
+    C.scrollLeft = function() {
+    const container = document.querySelector('.miseenavant__movies');
+    if (container) {
+        const slideWidth = container.clientWidth;
+        container.scrollBy({
+            left: -slideWidth,
+            behavior: 'smooth'
+        });
+    }
+};
+
+C.scrollRight = function() {
+    const container = document.querySelector('.miseenavant__movies');
+    if (container) {
+        const slideWidth = container.clientWidth;
+        container.scrollBy({
+            left: slideWidth,
+            behavior: 'smooth'
+        });
+    }
+};
+
+C.scrollCategoryLeft = function(categoryId) {
+    const container = document.querySelector(`#category-${categoryId}`);
+    if (container) {
+        const scrollAmount = container.clientWidth * 0.8;
+        container.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+};
+
+C.scrollCategoryRight = function(categoryId) {
+    const container = document.querySelector(`#category-${categoryId}`);
+    if (container) {
+        const scrollAmount = container.clientWidth * 0.8;
+        container.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+};
+
+
+C.handlerSearch = async function(event) {
+    const keyword = event.target.value;
+    
+    // Si le champ de recherche est vide, afficher tous les films
+    if (!keyword.trim()) {
+        await C.getMovieCategory();
+        return;
+    }
+    
+    // Effectuer la recherche
+    const movies = await DataMovie.searchMovies(keyword);
+    
+    // Afficher les résultats
+    const content = document.querySelector("#content");
+    if (content) {
+        content.innerHTML = "";
+        if (movies.length > 0) {
+            content.innerHTML = `
+                <section class="categorie">
+                    <h2 class="categorie__title">Résultats de recherche</h2>
+                    <div class="categorie__list">
+                        ${Movie.formatMany(movies)}
+                    </div>
+                </section>`;
+        } else {
+            content.innerHTML = `
+                <p style="color: white; text-align: center; margin-top: 2rem;">
+                    Aucun film trouvé pour "${keyword}"
+                </p>`;
+        }
+    }
+};
+
+// Ajoutez ceci dans la section des fonctions du contrôleur (C)
+C.toggleMenu = function() {
+    const menu = document.querySelector('.navbar__menu');
+    menu.classList.toggle('active');
+};
+
+
+
+//       C.changeProfile = async function (newId) {
+//         newId = parseInt(newId);
+//         const profiles = await DataProfile.readProfile();
+
+//         const selected = profiles.find((p) => p.id === newId);
+
+//         if (selected) {
+//           activeProfileId = selected.id;
+//           console.log("Profil sélectionné :", selected);
+//           C.getMovie();
+//         }
+//       };
+
+//       C.handlerProfile = async function () {
+//     const select = document.querySelector("#profile-select");
+//     const selectedOption = select.selectedOptions[0];
+//     const profileName = selectedOption.value;
+//     const dob = selectedOption.getAttribute("data-dob");
+//     const imageFilename = selectedOption.getAttribute("data-img");
+//     const picture = document.querySelector("#profile-image");
+//     const base = "https://mmi.unilim.fr/~cakir4/SAE2.03-Huzeyfe_ckr/server/images/";
+
+
+//     picture.src = base + imageFilename;
+
+   
+//     let data = await DataMovie.requestMoviesCategory(); 
+
+
+//     V.renderMovieCategory(data);
+// };
+
+
+
+      // Vue (contient tout ce qui est relatif à l'affichage)
+      window.V = {};
+
+      /**
+       * V.renderNavBar
+       *
+       * Cette fonction est responsable de l'affichage de la barre de navigation (NavBar).
+       * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
+       * formaté par le composant NavBar.
+       */
+      // V.renderNavBar = function (hAbout) {
+      //   let header = document.querySelector("#header");
+      //   header.innerHTML = NavBar.format(hAbout);
+      // };
+
+      V.renderNavBar = async function (hHome) {
+        let header = document.querySelector("#header");
+        let profiles = await DataProfile.readProfile();
+        header.innerHTML = NavBar.format(hHome, profiles, "C.handlerFavoris()");
+      };
+
+      V.renderMovie = function (data) {
+        let movie = document.querySelector("#movie");
+        movie.innerHTML = Movie.formatMany(data);
+      };
+
+      V.renderMovieInfo = function (data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = Movieinfo.format(data);
+      };
+
+
+      V.renderMovieCategory =  function (html) {
+        let content = document.querySelector("#movies__body");
+        content.innerHTML = html;
+      
+      };
+      V.renderMiseenavant = function (data) {
+    let content = document.querySelector("#miseenavant");
+    content.innerHTML = Miseenavant.format(data);
+    };
+    V.renderFooter = function() {
+            const footerElement = document.querySelector("#footer");
+            footerElement.innerHTML = Footer.format();
+        };
+
+      
+    
+
+      C.start(); // Démarre l'application
+    </script>
+  </body>
+</html>
+

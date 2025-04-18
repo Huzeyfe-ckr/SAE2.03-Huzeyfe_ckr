@@ -1,0 +1,18 @@
+<section class="categorie">
+    <h2 class="categorie__title">{{category}}</h2>
+    <div class="categorie__carousel">
+        <button class="scroll-btn left" onclick="C.scrollCategoryLeft('{{categoryId}}')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z" />
+            </svg>
+        </button>
+        <div class="categorie__list" id="category-{{categoryId}}">
+            {{movies}}
+        </div>
+        <button class="scroll-btn right" onclick="C.scrollCategoryRight('{{categoryId}}')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M13.1715 12.0007L8.22168 7.05093L9.6359 5.63672L15.9999 12.0007L9.6359 18.3646L8.22168 16.9504L13.1715 12.0007Z" />
+            </svg>
+        </button>
+    </div>
+</section>

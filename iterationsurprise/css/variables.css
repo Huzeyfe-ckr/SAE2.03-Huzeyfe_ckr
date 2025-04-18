@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap");
+
+:root {
+  /* Primitive Tokens */
+  --color-black: #000000;
+  --color-black--back: #1B1C20 ;
+  --color-black--nav :#0d0d0e;
+  --color-white: hsl(0, 0%, 100%);
+  --color-white--back: #EEEEEE;
+  --color-gray--dark: hsl(0, 0%, 65%);
+  --color-yellow: #FFC107;
+  --color-gray--but: #151619;
+  --color-gray--darks: rgb(255, 255, 255, 0.2);
+  --ff-sans: "DM sans", sans-serif;
+
+  /* Sementic Tokens */
+  --color-fg: var(--color-white);
+  --color-bg: var(--color-gray--dark);
+  --color-hg: var(--color-yellow);
+  --color-jg: var(--color-black--back);
+  --color-kg: var(--color-black--nav);
+  --color-lg: var(--color-white--back);
+  --color-mg: var(--color-gray--but);
+  --color-ng: var(--color-gray--darks);
+
+
+
+
+
+}
+
+  

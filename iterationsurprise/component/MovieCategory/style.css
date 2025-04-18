@@ -1,0 +1,127 @@
+.categorie {
+    width: 100%;
+    margin-top: 5rem;
+    margin-bottom: 4rem;
+    padding-inline: 1rem;
+  }
+
+  .categorie__bigtitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--color-white--back);
+    padding: 3rem 2rem 3rem 2rem;
+    text-transform: capitalize;
+    letter-spacing: 0.05rem;
+  }
+
+  
+  
+  .categorie__title {
+    font-size: 1rem;
+    color: var(--color-white--back);
+    margin-bottom: 2rem;
+    padding-left: 0.5rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+  }
+  
+  .categorie__list {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+
+
+    
+  }
+  
+  .categorie__carousel {
+    position: relative;
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  .scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    
+  }
+
+  .scroll-btn svg {
+    fill: var(--color-white--back);
+}
+  
+  .scroll-btn.left {
+    left: 0;
+  }
+  
+  .scroll-btn.right {
+    right: 0;
+  }
+  
+  .scroll-btn:hover {
+    background: rgba(0,0,0,0.8);
+  }
+
+  @media (min-width: 769px) {
+    .categorie__bigtitle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      color: var(--color-white--back);
+      padding: 5rem 0 5rem 0;
+      text-transform: capitalize;
+      letter-spacing: 0.05rem;
+    }
+
+    .categorie {
+      width: 100%;
+      margin-top: 5rem;
+      margin-bottom: 4rem;
+      padding-inline: 2rem;
+    }
+  
+    
+    
+    .categorie__title {
+      font-size: 2rem;
+      color: var(--color-white--back);
+      margin-bottom: 2rem;
+      padding-left: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
+    }
+    
+    .categorie__list {
+      display: flex;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding: 1rem 0;
+  
+  
+      
+    }
+    
+    .categorie__carousel {
+      position: relative;
+      width: 100%;
+      padding: 0 2rem;
+    }
+    
+  }

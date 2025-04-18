@@ -15,22 +15,22 @@
   object-fit: cover;
   width: 25rem;
   height: 30rem;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1rem 2rem var(--color-black--shadow);
 }
 
 .movie__info__body {
-    max-width: 1200px;
+    max-width: 75rem;
     padding: 4rem 2rem;
     align-items: start;
     background-color: #1d1d1d;
 }
 
 .movie__info__title{
-    color: #ffffff;
+    color: var(--color-white--back);
     font-size: 3.5rem;
     font-weight: 700;
     margin: 1.5rem;
-    text-shadow: 0 2px 4px rgb(255, 255, 255, 0.2);
+    text-shadow: 0 0.125rem 0.3rem var(--color-gray--darks);
     font-family: var(--ff-Bebas);
     letter-spacing: 0.1rem;
 }
@@ -39,29 +39,29 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    color: #ffffff;
+    color: var(--color-white--back);
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
-    max-width: 600px;
+    max-width: 37.5rem;
     opacity: 0.9;
 }
 
 
 .movie__info__li {
     
-    color: #ffffff;
+    color: var(--color-white--back);
     font-size: 1.1rem;
     display: flex;
     align-items: center;
 }
 
 .movie__info__li span {
-    background-color: rgb(255, 255, 255, 0.2);;
-    color: #ffffff;
+    background-color: var(--color-gray--darks);;
+    color: var(--color-white--back);
     padding: 0.5rem 1rem;
-    border-radius: 4px;
-    border: 1px solid rgb(255, 255, 255, 0.2);
+    border-radius: 0.2rem;
+    border: 1px solid var(--color-gray--darks);
     font-weight: 500;
     transition: all 0.3s ease;
 }
@@ -73,51 +73,13 @@
 
 .movie__info__trailer {
     width: 100%;
-    height: 400px;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    height: 25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px var(--color-black--shadow);
 
     transition: transform 0.3s ease;
 }
 
 .movie__info__trailer:hover {
     transform: scale(1.02);
-}
-
-/* Media Queries */
-@media screen and (max-width: 1024px) {
-    .movie__info__body {
-        grid-template-columns: 1fr;
-        padding: 3rem 1.5rem;
-    }
-
-    .movie__info__title {
-        font-size: 2.5rem;
-    }
-
-    .movie__info__trailer {
-        height: 350px;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .movie__info__body {
-        padding: 2rem 1rem;
-    }
-
-    .movie__info__title {
-        font-size: 2rem;
-    }
-
-    .desc-card__description {
-        font-size: 1rem;
-    }
-
-    .movie__info__trailer {
-        height: 250px;
-    }
-
-    .desc-card__detailsul {
-        gap: 0.5rem;
-    }
 }
